@@ -101,6 +101,25 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 	if(!pref.bgstate || !(pref.bgstate in pref.bgstate_options))
 		pref.bgstate = "black"
 
+/datum/category_item/player_setup_item/physical/body/ui_data(mob/user)
+	var/list/data = ..()
+
+	var/datum/species/chosen_species = global.all_species[pref.species]
+	var/datum/species_form/mob_species_form = GLOB.all_species_form_list[pref.species_form]
+
+	data["species"] = chosen_species.name
+	// Prevent changing species form to anything other than a variant
+	data["obligate_form"] = chosen_species.obligate_form
+
+	data["species_form"] = mob_species_form.name
+
+	var/list/variants = list()
+	for(var/key in mob_species_form.variants)
+		variants += key
+	data["species_form_variants"] = variants
+
+	return data
+
 /datum/category_item/player_setup_item/physical/body/content(var/mob/user)
 	if(!pref.preview_icon)
 		pref.update_preview_icon()
@@ -121,12 +140,14 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 	var/formstring = ""
 	var/datum/species_form/cform = GLOB.all_species_form_list[pref.species_form]
 	if(istype(cform) && cform.variants && cform.variants.len && !cspecies.obligate_form)
+		// >
 		formstring = "<a href='?src=\ref[src];select_form_variant=[cform.name]'>&#707;</a>" + formstring
 	while(istype(cform))
 		var/mode = (!cform.variantof || cform.name == cform.variantof) ? "select_form=1" : "select_variant=[cform.variantof]"
 		var/prefix = ""
 		if(cform.name == cspecies.default_form && cspecies.obligate_form)
 			mode = "reset_form=1"
+			// reset symbol
 			prefix = "&#8634; "
 		formstring = "<a href='?src=\ref[src];[mode]'>[prefix][cform.name]</a>" + formstring
 		if(cform.name == cform.variantof || cform.name == cspecies.default_form && cspecies.obligate_form) break

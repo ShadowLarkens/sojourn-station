@@ -96,6 +96,26 @@
 			if(!pref.real_name)
 				pref.real_name = random_name(pref.gender, pref.species)
 	*/
+
+/datum/category_item/player_setup_item/physical/basic/ui_data(mob/user)
+	var/list/data = ..()
+
+	data["real_name"] = pref.real_name
+	data["species_color"] = pref.species_color
+	data["species_aan"] = pref.species_aan
+	data["custom_species"] = pref.custom_species
+	data["be_random_name"] = pref.be_random_name
+
+	data["gender"] = pref.gender
+	data["gender_identity"] = pref.gender_identity
+	data["age"] = pref.age
+	data["b_type"] = pref.b_type
+	data["nearsighted"] = pref.disabilities & NEARSIGHTED
+	data["spawnpoint"] = pref.spawnpoint
+
+	return data
+
+
 /datum/category_item/player_setup_item/physical/basic/content()
 	if(global.all_species[pref.species]?:obligate_name)
 		pref.custom_species = global.all_species[pref.species]

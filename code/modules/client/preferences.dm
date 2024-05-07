@@ -93,6 +93,8 @@
 		load_preferences()
 		load_and_update_character()
 
+	ui_interact(user)
+
 	var/dat = "<html><body><center>"
 
 	if(path)
@@ -115,6 +117,42 @@
 	var/datum/browser/popup = new(user, "Character Setup","Character Setup", 1200, 800, src)
 	popup.set_content(dat)
 	popup.open()
+
+// Always available
+/datum/preferences/ui_state(mob/user)
+	return GLOB.interactive_state
+
+// Without this, a hacker would be able to edit other people's preferences if
+// they had the ref to Topic to.
+/datum/preferences/ui_status(mob/user, datum/ui_state/state)
+	return user.client == client ? UI_INTERACTIVE : UI_CLOSE
+
+/datum/preferences/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "CharacterSetup", "Character Setup")
+		ui.open()
+
+/datum/preferences/ui_data(mob/user)
+	var/list/data = list()
+
+	data += player_setup.ui_data(user)
+
+	return data
+
+/datum/preferences/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data += player_setup.ui_static_data(user)
+
+	return data
+
+/datum/preferences/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	return player_setup.ui_act(action, params, ui, state)
 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
 

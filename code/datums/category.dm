@@ -30,6 +30,19 @@
 /datum/category_collection/proc/operator[]=(idx, B)
 	categories_by_name[idx] = B
 
+/datum/category_collection/ui_data(mob/user)
+	return list()
+
+/datum/category_collection/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["ref"] = "[REF(src)]"
+	// TODO: Remove
+	data["type"] = "[type]"
+
+	return data
+
+
 /******************
 * Category Groups *
 ******************/
@@ -73,7 +86,18 @@ datum/category_group/dd_SortValue()
 /datum/category_group/proc/operator[]=(idx, B)
 	items_by_name[idx] = B
 
+/datum/category_group/ui_data(mob/user)
+	return list()
 
+/datum/category_group/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["name"] = "[name]"
+	data["ref"] = "[REF(src)]"
+	// TODO: Remove
+	data["type"] = "[type]"
+
+	return data
 /*****************
 * Category Items *
 *****************/
@@ -91,3 +115,16 @@ datum/category_group/dd_SortValue()
 
 datum/category_item/dd_SortValue()
 	return name
+
+/datum/category_item/ui_data(mob/user)
+	return list()
+
+/datum/category_item/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["name"] = "[name]"
+	data["ref"] = "[REF(src)]"
+	// TODO: Remove
+	data["type"] = "[type]"
+
+	return data

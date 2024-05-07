@@ -130,6 +130,48 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	if(.)
 		user.client.prefs.ShowChoices(user)
 
+/datum/category_collection/player_setup_collection/ui_static_data(mob/user)
+	var/list/data = ..()
+	
+	var/list/available_categories = list()
+	for(var/datum/category_group/player_setup_category/PS in categories)
+		available_categories += list(PS.ui_static_data(user))
+
+	data["categories"] = available_categories
+	
+	return data
+
+/datum/category_collection/player_setup_collection/ui_data(mob/user)
+	var/list/data = ..()
+
+	if(selected_category)
+		var/list/selected_category_data = selected_category.ui_data(user)
+		selected_category_data["name"] = selected_category.name
+		selected_category_data["ref"] = "[REF(selected_category)]"
+		selected_category_data["type"] = "[selected_category.type]"
+		data["selected_category"] = selected_category_data
+	else
+		data["selected_category"] = null
+
+	return data
+
+/datum/category_collection/player_setup_collection/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	
+	switch(action)
+		if("set_category")
+			var/category = locate(params["ref"])
+			if(category && (category in categories))
+				selected_category = category
+				if(selected_category.update_preview_icon)
+					preferences.update_preview_icon(naked = istype(selected_category, /datum/category_group/player_setup_category/augmentation))
+			. = TRUE
+		else
+			if(selected_category)
+				return selected_category.ui_act(action, params, ui, state)
+
 /**************************
 * Category Category Setup *
 **************************/
@@ -181,6 +223,38 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 			. += "</td><td></td><td style='width:50%'>"
 		. += "[PI.content(user)]<br>"
 	. += "</td></tr></table>"
+
+/datum/category_group/player_setup_category/ui_static_data(mob/user)
+	var/list/data = ..()
+
+	var/list/data_items = list()
+	for(var/datum/category_item/player_setup_item/PI in items)
+		data_items[PI.name] = PI.ui_static_data(user)
+
+	data["items_static"] = data_items
+
+	return data
+
+/datum/category_group/player_setup_category/ui_data(mob/user)
+	var/list/data = ..()
+
+	var/list/data_items = list()
+	for(var/datum/category_item/player_setup_item/PI in items)
+		data_items[PI.name] = PI.ui_data(user)
+
+	data["items"] = data_items
+
+	return data
+
+/datum/category_group/player_setup_category/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	for(var/datum/category_item/player_setup_item/PI in items)
+		var/ret = PI.ui_act(action, params, ui, state)
+		if(ret)
+			return ret
 
 /datum/category_group/player_setup_category/occupation_preferences/content(var/mob/user)
 	for(var/datum/category_item/player_setup_item/PI in items)

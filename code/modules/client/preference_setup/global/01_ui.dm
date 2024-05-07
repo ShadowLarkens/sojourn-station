@@ -37,6 +37,18 @@
 	pref.clientfps	    = sanitize_integer(pref.clientfps, CLIENT_MIN_FPS, CLIENT_MAX_FPS, initial(pref.clientfps)) //Enabled by SoJ
 	pref.TGUI_theme		= sanitize_inlist(pref.TGUI_theme, GLOB.TGUI_THEMES, initial(pref.TGUI_theme))
 
+/datum/category_item/player_setup_item/player_global/ui/ui_data(mob/user)
+	var/list/data = ..()
+
+	data["UI_style"] = pref.UI_style
+	data["UI_style_color"] = pref.UI_style_color
+	data["UI_style_alpha"] = pref.UI_style_alpha
+	data["ooccolor"] = pref.ooccolor
+	data["clientfps"] = pref.clientfps
+	data["TGUI_theme"] = pref.TGUI_theme
+
+	return data
+
 /datum/category_item/player_setup_item/player_global/ui/content(var/mob/user)
 	. += "<b>UI Settings</b><br>"
 	. += "<b>UI Style:</b> <a href='?src=\ref[src];select_style=1'><b>[pref.UI_style]</b></a><br>"
