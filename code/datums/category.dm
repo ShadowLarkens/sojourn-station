@@ -42,6 +42,15 @@
 
 	return data
 
+/datum/category_collection/proc/get_constant_data()
+	var/list/data = list()
+
+	for(var/category_name in categories_by_name)
+		var/datum/category_group/group = categories_by_name[category_name]
+
+		data[category_name] = group.get_constant_data()
+
+	return data
 
 /******************
 * Category Groups *
@@ -98,6 +107,17 @@ datum/category_group/dd_SortValue()
 	data["type"] = "[type]"
 
 	return data
+
+/datum/category_group/proc/get_constant_data()
+	var/list/data = list()
+
+	for(var/item_name in items_by_name)
+		var/datum/category_item/item = items_by_name[item_name]
+
+		data[item_name] = item.get_constant_data()
+
+	return data
+
 /*****************
 * Category Items *
 *****************/
@@ -128,3 +148,6 @@ datum/category_item/dd_SortValue()
 	data["type"] = "[type]"
 
 	return data
+
+/datum/category_item/proc/get_constant_data()
+	return list()

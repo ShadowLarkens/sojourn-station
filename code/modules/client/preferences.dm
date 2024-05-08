@@ -127,6 +127,11 @@
 /datum/preferences/ui_status(mob/user, datum/ui_state/state)
 	return user.client == client ? UI_INTERACTIVE : UI_CLOSE
 
+/datum/preferences/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/json/preferences)
+	)
+
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

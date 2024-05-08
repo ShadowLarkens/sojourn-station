@@ -1,7 +1,9 @@
-import { BooleanLike } from '../../common/react'
-import { useBackend } from '../backend'
-import { Button, LabeledList, NumberInput, Section, Stack, Tabs } from '../components'
-import { Window } from '../layouts'
+import { BooleanLike } from '../../../common/react';
+import { useBackend } from '../../backend';
+import { Button, LabeledList, Section, Stack, Tabs } from '../../components';
+import { Window } from '../../layouts';
+import { logger } from '../../logging';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 
 type Item = {
@@ -24,30 +26,37 @@ type Data = {
 }
 
 export const CharacterSetup = props => {
-  const { act, data } = useBackend<Data>()
+  const { act, data } = useBackend<Data>();
 
-  const { categories, selected_category } = data
+  const { categories, selected_category } = data;
 
-  let selected_category_data = categories.find((val) => val.type == selected_category.type)
+  let selected_category_data = categories.find((val) => val.type === selected_category.type);
 
   return (
     <Window width={1200} height={800}>
       <Window.Content>
-        <Tabs>
-          {categories.map(category => (
-            <Tabs.Tab
-              selected={selected_category.name == category.name}
-              onClick={() => act('set_category', { ref: category.ref })}
-            >
-              {category.name}
-            </Tabs.Tab>
-          ))}
-        </Tabs>
-        <DynamicCategory type={selected_category.type} static_data={selected_category_data} />
+        <ServerPreferencesFetcher render={(data) => {
+          return (
+            <>
+              <Tabs>
+                {categories.map(category => (
+                  <Tabs.Tab
+                    key={category.ref}
+                    selected={selected_category.name === category.name}
+                    onClick={() => act('set_category', { ref: category.ref })}
+                  >
+                    {category.name}
+                  </Tabs.Tab>
+                ))}
+              </Tabs>
+              <DynamicCategory type={selected_category.type} static_data={selected_category_data} />
+            </>
+          )
+        }} />
       </Window.Content>
     </Window>
-  )
-}
+  );
+};
 
 const DynamicCategory = (props: { type: string, static_data: any }) => {
   const { act } = useBackend();
@@ -56,9 +65,11 @@ const DynamicCategory = (props: { type: string, static_data: any }) => {
 
   switch (type) {
     case "/datum/category_group/player_setup_category/global_preferences":
-      return <GlobalSettings />
+      return <GlobalSettings />;
+    case "/datum/category_group/player_setup_category/physical_preferences":
+      return <PhysicalSettings />;
   }
-}
+};
 
 const GlobalSettings = props => {
   const { act, data } = useBackend<Data>();
@@ -75,8 +86,8 @@ const GlobalSettings = props => {
         </Stack.Item>
       </Stack>
     </Section>
-  )
-}
+  );
+};
 
 type UIData = {
   UI_style: string;
@@ -115,8 +126,8 @@ const UISettings = (props: { data: UIData }) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
-  )
-}
+  );
+};
 
 type PrefixData = {
   prefixes: {
@@ -135,7 +146,7 @@ const PrefixSettings = (props: { data: PrefixData }) => {
   return (
     <Section title="Prefix Keys">
       <Stack vertical fill zebra>
-        {prefixes.map((prefix) => <Stack.Item>
+        {prefixes.map((prefix) => (<Stack.Item key={prefix.name}>
           <Stack align="center" p={1}>
             <Stack.Item grow textColor="#e8e8e8">
               {prefix.name}
@@ -147,16 +158,28 @@ const PrefixSettings = (props: { data: PrefixData }) => {
               </Button>
             </Stack.Item>
           </Stack>
-        </Stack.Item>)}
+                                   </Stack.Item>))}
       </Stack>
     </Section>
-  )
-}
+  );
+};
 
 const DatumPreferences = props => {
   return (
     <Section title="Preferences">
       Meow
     </Section>
+  );
+};
+
+
+const PhysicalSettings = props => {
+  const { act, data } = useBackend<Data>();
+
+  return (
+    <Section title="Physical Preferences">
+      <img src="previewicon.png" />
+    </Section>
   )
+
 }

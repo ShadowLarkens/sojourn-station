@@ -1699,6 +1699,7 @@
 #include "code\modules\client\edge_sliding\keystate\1definitions.dm"
 #include "code\modules\client\edge_sliding\keystate\KeyState.dm"
 #include "code\modules\client\preference_setup\_defines.dm"
+#include "code\modules\client\preference_setup\asset.dm"
 #include "code\modules\client\preference_setup\options_popup.dm"
 #include "code\modules\client\preference_setup\preference_setup.dm"
 #include "code\modules\client\preference_setup\preview.dm"
