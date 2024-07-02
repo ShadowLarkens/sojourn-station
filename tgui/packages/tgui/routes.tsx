@@ -78,6 +78,8 @@ export const getRoutedComponent = () => {
     // Easiest way to shove all of these Ntos UIs into a folder is just to make routes check for them
     (name: string) => `./Ntos/${name}.tsx`,
     (name: string) => `./Ntos/${name}.jsx`,
+    (name: string) => `./Ntos/${name}/index.tsx`,
+    (name: string) => `./Ntos/${name}/index.jsx`,
   ];
   let esModule;
   while (!esModule && interfacePathBuilders.length > 0) {

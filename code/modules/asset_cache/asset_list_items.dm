@@ -161,6 +161,20 @@
 		insert_icon(sprite, uni_icon('icons/obj/chemical.dmi', sprite))
 	insert_icon("supeyrette", uni_icon('icons/obj/syringe.dmi', "supeyrette"))
 
+/datum/asset/spritesheet_batched/trade
+	name = "trade"
+
+/datum/asset/spritesheet_batched/trade/create_spritesheets()
+	insert_all_icons("", 'icons/ui_icons/trade.dmi')
+	insert_icon("space", uni_icon('icons/turf/space.dmi', "7"))
+
+/datum/asset/simple/trade
+	keep_local_name = TRUE
+
+/datum/asset/simple/trade/register()
+	assets["trading_background.png"] = icon('icons/parallax.dmi', "space3", SOUTH, 1, 0)
+	..()
+
 /datum/asset/simple/materials/register()
 	for(var/type in subtypesof(/obj/item/stack/material) - typesof(/obj/item/stack/material/cyborg))
 		var/filename = sanitizeFileName("[type].png")

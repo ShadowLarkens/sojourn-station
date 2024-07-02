@@ -18,6 +18,7 @@
 	filename = "trade"
 	filedesc = "Trading Program"
 	nanomodule_path = /datum/nano_module/program/trade
+	tguimodule_path = /datum/tgui_module/trade
 	program_icon_state = "supply"
 	program_key_state = "rd_key"
 	program_menu_icon = "cart-plus"
@@ -991,17 +992,18 @@
 
 			.["current_log_data"] = page_of_logs
 
-#undef TRADESCREEN
-#undef GOODS_SCREEN
-#undef OFFER_SCREEN
-#undef CART_SCREEN
-#undef ORDER_SCREEN
-#undef SAVED_SCREEN
-#undef PRG_MAIN
-#undef PRG_TREE
-#undef LOG_SCREEN
-#undef LOG_SHIPPING
-#undef LOG_EXPORT
-#undef LOG_OFFER
-#undef LOG_ORDER
 #undef LOG_SCREEN_LIST
+#undef TRADESCREEN
+#undef PRG_TREE
+#undef PRG_MAIN
+#undef LOG_ORDER
+#undef LOG_SALE
+#undef LOG_OFFER
+#undef LOG_EXPORT
+#undef LOG_SHIPPING
+#undef LOG_SCREEN
+#undef SAVED_SCREEN
+#undef ORDER_SCREEN
+#undef CART_SCREEN
+#undef OFFER_SCREEN
+#undef GOODS_SCREEN
