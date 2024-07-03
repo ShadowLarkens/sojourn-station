@@ -346,6 +346,7 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/proc/view_stats(mob/user)
+	ui_interact(user)
 	user << browse(get_stats_html(), "window=exosuit")
 
 ////////////////////////////
