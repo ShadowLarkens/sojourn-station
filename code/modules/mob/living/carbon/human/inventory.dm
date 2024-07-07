@@ -46,7 +46,10 @@ This saves us from having to call add_fingerprint() any time something is put in
 
 //Find HUD position on screen
 /mob/living/carbon/human/proc/find_inv_position(var/slot_id)
-	for(var/obj/screen/inventory/HUDinv in HUDinventory)
+	if(!client || !hud_used)
+		return "7,7"
+
+	for(var/obj/screen/inventory/HUDinv in hud_used?.HUDinventory)
 		if (HUDinv.slot_id == slot_id)
 			return (HUDinv.invisibility == 101) ? null : HUDinv.screen_loc
 	log_admin("[src] try find_inv_position a [slot_id], but not have that slot!")
@@ -128,8 +131,8 @@ This saves us from having to call add_fingerprint() any time something is put in
 			if(I.flags_inv & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACEHAIR))
 				update_hair(0)	//rebuild hair
 				update_inv_ears(0)
-		if(HUDneed.Find("internal"))
-			var/obj/screen/HUDelm = HUDneed["internal"]
+		if(hud_used?.HUDneed.Find("internal"))
+			var/obj/screen/HUDelm = hud_used.HUDneed["internal"]
 			HUDelm.update_icon()
 /*			if(internals)
 				internals.icon_state = "internal0"*/

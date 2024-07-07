@@ -103,10 +103,10 @@
 		SetWeakened(0)
 		SetDrowsyness(0)
 
-	if(isliving(src))
+	if(isliving(src) && hud_used)
 		var/mob/living/L = src
-		if(L.HUDneed.Find("health"))
-			var/obj/screen/health/H = L.HUDneed["health"]
+		if(L.hud_used.HUDneed.Find("health"))
+			var/obj/screen/health/H = L.hud_used.HUDneed["health"]
 			//H.icon_state = "health7" hm... need recode this moment...
 			H.DEADelize()
 	if(client)

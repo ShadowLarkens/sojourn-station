@@ -213,13 +213,13 @@
 						to_chat(user, SPAN_NOTICE("You look [istop ? "down" : "up"] \the [src]."))
 						user.client.eye = user.client.mob
 						user.client.perspective = MOB_PERSPECTIVE
-						user.hud_used.updatePlaneMasters(user)
+						user.hud_used?.updatePlaneMasters(user)
 						user.is_watching = FALSE
 						user.can_multiz_pb = FALSE
 					else if(user.is_watching == FALSE)
 						user.client.eye = target
 						user.client.perspective = EYE_PERSPECTIVE
-						user.hud_used.updatePlaneMasters(user)
+						user.hud_used?.updatePlaneMasters(user)
 						user.is_watching = TRUE
 						if(Adjacent(user))
 							user.can_multiz_pb = TRUE
@@ -230,7 +230,7 @@
 	else
 		user.client.eye = user.client.mob
 		user.client.perspective = MOB_PERSPECTIVE
-		user.hud_used.updatePlaneMasters(user)
+		user.hud_used?.updatePlaneMasters(user)
 		user.is_watching = FALSE
 		return
 
@@ -310,12 +310,12 @@
 						to_chat(user, SPAN_NOTICE("You look [istop ? "down" : "up"] \the [src]."))
 						user.client.eye = user.client.mob
 						user.client.perspective = MOB_PERSPECTIVE
-						user.hud_used.updatePlaneMasters(user)
+						user.hud_used?.updatePlaneMasters(user)
 						user.is_watching = FALSE
 					else if(user.is_watching == FALSE)
 						user.client.eye = target
 						user.client.perspective = EYE_PERSPECTIVE
-						user.hud_used.updatePlaneMasters(user)
+						user.hud_used?.updatePlaneMasters(user)
 						user.is_watching = TRUE
 				return
 		else
@@ -324,7 +324,7 @@
 	else
 		user.client.eye = user.client.mob
 		user.client.perspective = MOB_PERSPECTIVE
-		user.hud_used.updatePlaneMasters(user)
+		user.hud_used?.updatePlaneMasters(user)
 		user.is_watching = FALSE
 		return
 

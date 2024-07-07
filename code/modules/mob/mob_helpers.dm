@@ -362,8 +362,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 		else
 			a_intent = I_HELP
 
-	if (HUDneed.Find("intent"))
-		var/obj/screen/intent/I = HUDneed["intent"]
+	if (hud_used?.HUDneed.Find("intent"))
+		var/obj/screen/intent/I = hud_used.HUDneed["intent"]
 		I.update_icon()
 
 

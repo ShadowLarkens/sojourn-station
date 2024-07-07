@@ -110,6 +110,8 @@
 		/mob/living/silicon/robot/proc/robot_checklaws
 	)
 
+	hud_type = /datum/hud/robot
+
 /mob/living/silicon/robot/proc/AddTrait(trait_type)
 	if(robot_traits & trait_type)
 		return FALSE
@@ -212,7 +214,6 @@
 	hud_list[IMPTRACK_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
-	create_HUD()
 
 /mob/living/silicon/robot/proc/recalculate_synth_capacities()
 	if(!module || !module.synths)

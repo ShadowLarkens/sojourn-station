@@ -1395,19 +1395,19 @@ obj/screen/fire/DEADelize()
 	screen_loc = "1,0"
 
 /obj/screen/toggle_invetory/proc/hideobjects()
-	for (var/obj/screen/HUDelement in parentmob.HUDinventory)
+	for (var/obj/screen/HUDelement in parentmob.hud_used?.HUDinventory)
 		if (HUDelement.hideflag & TOGGLE_INVENTORY_FLAG)
 			HUDelement.invisibility = 101
 			hidden_inventory_update(HUDelement)
-	for (var/obj/screen/HUDelement in parentmob.HUDfrippery)
+	for (var/obj/screen/HUDelement in parentmob.hud_used?.HUDfrippery)
 		if (HUDelement.hideflag & TOGGLE_INVENTORY_FLAG)
 			HUDelement.invisibility = 101
 
 /obj/screen/toggle_invetory/proc/showobjects()
-	for (var/obj/screen/HUDelement in parentmob.HUDinventory)
+	for (var/obj/screen/HUDelement in parentmob.hud_used?.HUDinventory)
 		HUDelement.invisibility = 0
 		hidden_inventory_update(HUDelement)
-	for (var/obj/screen/HUDelement in parentmob.HUDfrippery)
+	for (var/obj/screen/HUDelement in parentmob.hud_used?.HUDfrippery)
 		HUDelement.invisibility = 0
 
 /obj/screen/toggle_invetory/Click()

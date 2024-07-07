@@ -189,7 +189,7 @@
 		return
 
 
-	for (var/obj/screen/H in HUDprocess)
+	for (var/obj/screen/H in hud_used?.HUDprocess)
 //		var/obj/screen/B = H
 		H.Process()
 

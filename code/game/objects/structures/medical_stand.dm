@@ -254,8 +254,8 @@
 			if(tank)
 				tank.forceMove(C)
 			breather = C
-			if(breather.HUDneed.Find("internal"))
-				internalsHud = breather.HUDneed["internal"]
+			if(breather.hud_used?.HUDneed.Find("internal"))
+				internalsHud = breather.hud_used.HUDneed["internal"]
 			return TRUE
 
 /obj/structure/medical_stand/proc/can_apply_to_target(var/mob/living/carbon/human/target, var/mob/user)

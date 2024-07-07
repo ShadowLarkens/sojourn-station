@@ -634,8 +634,8 @@
 	if(pulling)
 		pulling.pulledby = null
 		pulling = null
-		if(HUDneed.Find("pull"))
-			var/obj/screen/HUDthrow/HUD = HUDneed["pull"]
+		if(hud_used?.HUDneed.Find("pull"))
+			var/obj/screen/HUDthrow/HUD = hud_used.HUDneed["pull"]
 			HUD.update_icon()
 
 /mob/proc/start_pulling(var/atom/movable/AM)
@@ -948,8 +948,8 @@ All Canmove setting in this proc is temporary. This var should not be set from h
 
 /mob/living/flash_weak_pain()
 //	flick("weak_pain", flash["pain"])
-	if(HUDtech.Find("pain"))
-		flick("weak_pain", HUDtech["pain"])
+	if(hud_used?.HUDtech.Find("pain"))
+		flick("weak_pain", hud_used.HUDtech["pain"])
 
 
 /mob/proc/get_visible_implants()
@@ -1192,8 +1192,8 @@ mob/proc/yank_out_object()
 	set category = "IC"
 	set src = usr
 
-	if(HUDneed["move intent"])
-		HUDneed["move intent"]:Click()  // Yep , this is all.
+	if(hud_used?.HUDneed["move intent"])
+		hud_used.HUDneed["move intent"]:Click()  // Yep , this is all.
 
 /mob/proc/adjustEarDamage()
 	return
@@ -1256,7 +1256,7 @@ mob/proc/yank_out_object()
 	return name
 
 /client/proc/check_has_body_select()
-	return mob && mob.HUDneed && mob.HUDneed["damage zone"]
+	return mob?.hud_used?.HUDneed["damage zone"]
 
 /client/verb/body_toggle_head()
 	set name = "body-toggle-head"
@@ -1296,7 +1296,7 @@ mob/proc/yank_out_object()
 /client/proc/toggle_zone_sel(list/zones)
 	if(!check_has_body_select())
 		return
-	var/obj/screen/zone_sel/selector = mob.HUDneed["damage zone"]
+	var/obj/screen/zone_sel/selector = mob.hud_used.HUDneed["damage zone"]
 	selector.set_selected_zone(next_list_item(mob.targeted_organ,zones))
 /mob/proc/set_stat(var/new_stat)
 	. = stat != new_stat

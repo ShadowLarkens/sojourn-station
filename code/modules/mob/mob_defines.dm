@@ -125,7 +125,7 @@ While it would be entirely possible to check the mob's move handlers list for th
 	var/obj/item/storage/s_active = null//Carbon
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
-
+	var/hud_type = /datum/hud
 	var/datum/hud/hud_used = null
 
 	var/list/grabbed_by = list(  )
@@ -200,12 +200,6 @@ While it would be entirely possible to check the mob's move handlers list for th
 	var/flavor_text = ""
 	var/ooc_text = ""
 
-
-	var/list/HUDneed = list() // What HUD object need see
-	var/list/HUDinventory = list()
-	var/list/HUDfrippery = list()//flavor
-	var/list/HUDprocess = list() //What HUD object need process
-	var/list/HUDtech = list()
 	var/defaultHUD = "" //Default mob hud
 
 	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly

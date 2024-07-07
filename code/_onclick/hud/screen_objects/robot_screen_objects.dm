@@ -30,7 +30,7 @@
 	if(R.module)
 		R.uneq_active()
 		R.update_robot_modules_display()
-		for (var/obj/screen/inv in parentmob.HUDinventory)
+		for (var/obj/screen/inv in parentmob.hud_used?.HUDinventory)
 			inv.update_icon()
 	else
 		to_chat(R, "You haven't selected a module yet.")

@@ -266,39 +266,39 @@
 
 /obj/machinery/surveillance_pod/proc/handle_occupant_UI(hide_ui)
 	if(hide_ui)
-		for(var/obj/screen/inventory/IS in occupant.HUDinventory)
+		for(var/obj/screen/inventory/IS in occupant.hud_used?.HUDinventory)
 			if(IS.hideflag)
 				IS.invisibility = 101
 				IS.handle_inventory_invisibility(IS, occupant)
 
-		for(var/obj/screen/S in occupant.HUDfrippery)
+		for(var/obj/screen/S in occupant.hud_used?.HUDfrippery)
 			if(S.hideflag)
 				S.invisibility = 101
 
-		for(var/i = 1 to occupant.HUDneed.len)
-			occupant.client.screen.Remove(occupant.HUDneed[occupant.HUDneed[i]])
+		for(var/i = 1 to occupant.hud_used?.HUDneed.len)
+			occupant.client.screen.Remove(occupant.hud_used.HUDneed[occupant.hud_used.HUDneed[i]])
 
-		for(var/i=1,i<=occupant.HUDneed.len,i++)
-			var/p = occupant.HUDneed[i]
+		for(var/i=1,i<=occupant.hud_used?.HUDneed.len,i++)
+			var/p = occupant.hud_used.HUDneed[i]
 			if(p in HUDneed_element_to_keep)
-				occupant.client.screen += occupant.HUDneed[p]
+				occupant.client.screen += occupant.hud_used.HUDneed[p]
 
 		occupant.client.create_UI(big_brother.type)
 
 	else
-		for(var/obj/screen/inventory/IS in occupant.HUDinventory)
+		for(var/obj/screen/inventory/IS in occupant.hud_used?.HUDinventory)
 			if(IS.hideflag)
 				IS.invisibility = 0
 				IS.handle_inventory_invisibility(IS, occupant)
 
-		for(var/obj/screen/S in occupant.HUDfrippery)
+		for(var/obj/screen/S in occupant.hud_used?.HUDfrippery)
 			if(S.hideflag)
 				S.invisibility = 0
 
-		for(var/i=1, i<=occupant.HUDneed.len, i++)
-			var/p = occupant.HUDneed[i]
+		for(var/i=1, i<=occupant.hud_used?.HUDneed.len, i++)
+			var/p = occupant.hud_used.HUDneed[i]
 			if(!(p in HUDneed_element_to_keep))
-				occupant.client.screen += occupant.HUDneed[p]
+				occupant.client.screen += occupant.hud_used.HUDneed[p]
 
 		occupant.client.destroy_UI()
 

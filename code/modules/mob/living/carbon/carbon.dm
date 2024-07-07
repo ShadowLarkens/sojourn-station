@@ -112,7 +112,7 @@
 
 	//Now we do the hand swapping
 	src.hand = !( src.hand )
-	for (var/obj/screen/inventory/hand/H in src.HUDinventory)
+	for (var/obj/screen/inventory/hand/H in hud_used?.HUDinventory)
 		H.update_icon()
 
 	var/obj/item/new_held = get_active_hand()

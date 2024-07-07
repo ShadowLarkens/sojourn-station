@@ -134,3 +134,5 @@
 	var/frost_warnings
 	var/frost_warnings_cooldown = 49
 	var/max_frost = 1200 //were out of 1.2k so are values are a bit inflated
+
+	hud_type = /datum/hud/human

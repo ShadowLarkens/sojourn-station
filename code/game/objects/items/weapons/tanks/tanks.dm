@@ -183,8 +183,8 @@ var/list/global/tank_gauge_cache = list()
 				playsound(usr, 'sound/effects/Custom_internals.ogg', 100, 0)
 			else
 				to_chat(usr, SPAN_WARNING("You need something to connect to \the [src]."))
-			if(location.HUDneed.Find("internal"))
-				var/obj/screen/HUDelm = location.HUDneed["internal"]
+			if(location.hud_used?.HUDneed.Find("internal"))
+				var/obj/screen/HUDelm = location.hud_used.HUDneed["internal"]
 				HUDelm.update_icon()
 		src.add_fingerprint(usr)
 

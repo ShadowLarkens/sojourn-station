@@ -1115,7 +1115,8 @@ var/list/rank_prefix = list(\
 
 
 	// Rebuild the HUD. If they aren't logged in then login() should reinstantiate it for them.
-	check_HUD()
+	hud_used?.force_recreate()
+	// check_HUD()
 	/*
 	if(client && client.screen)//HUD HERE!!!!!!!!!!
 		client.screen.Cut()
@@ -1682,8 +1683,8 @@ var/list/rank_prefix = list(\
 		return
 	blocking = TRUE
 	visible_message(SPAN_WARNING("[src] tenses up, ready to block!"))
-	if(HUDneed.Find("block"))
-		var/obj/screen/block/HUD = HUDneed["block"]
+	if(hud_used?.HUDneed.Find("block"))
+		var/obj/screen/block/HUD = hud_used?.HUDneed["block"]
 		HUD.update_icon()
 	update_block_overlay()
 	return
@@ -1693,8 +1694,8 @@ var/list/rank_prefix = list(\
 		return
 	blocking = FALSE
 	visible_message(SPAN_NOTICE("[src] lowers \his guard."))
-	if(HUDneed.Find("block"))
-		var/obj/screen/block/HUD = HUDneed["block"]
+	if(hud_used?.HUDneed.Find("block"))
+		var/obj/screen/block/HUD = hud_used?.HUDneed["block"]
 		HUD.update_icon()
 	update_block_overlay()
 	return

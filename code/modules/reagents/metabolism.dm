@@ -114,7 +114,7 @@
 	else
 		for(var/stat in ALL_STATS_FOR_LEVEL_UP)
 			parent.stats.removeTempStat(stat, "nsa_breach")
-	var/obj/screen/nsa/hud = parent.HUDneed["neural system accumulation"]
+	var/obj/screen/nsa/hud = parent.hud_used?.HUDneed["neural system accumulation"]
 	hud?.update_icon()
 
 //NSA Overloads!

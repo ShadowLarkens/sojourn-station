@@ -161,6 +161,6 @@
 		visible_message(SPAN_WARNING("\The [src] is now running on internals!"))
 		internal.add_fingerprint(user)
 
-	if(HUDneed.Find("internal"))
-		var/obj/screen/HUDelm = HUDneed["internal"]
+	if(hud_used?.HUDneed.Find("internal"))
+		var/obj/screen/HUDelm = hud_used.HUDneed["internal"]
 		HUDelm.update_icon()

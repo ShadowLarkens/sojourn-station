@@ -37,9 +37,10 @@
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
+
+	create_mob_hud()
 	if(hud_used)
-		qdel(hud_used)		//remove the hud objects
-	hud_used = new /datum/hud(src)
+		hud_used.show()
 
 	next_move = 1
 	sight |= SEE_SELF

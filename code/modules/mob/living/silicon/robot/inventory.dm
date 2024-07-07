@@ -84,7 +84,7 @@
 		module_state_3:loc = module
 		module_state_3 = null
 		//inv3.icon_state = "inv3"
-	for (var/obj/screen/HUDelement in HUDinventory)
+	for (var/obj/screen/HUDelement in hud_used.HUDinventory)
 		HUDelement.underlays.Cut()
 	update_robot_modules_display()
 	updateicon()
@@ -194,7 +194,7 @@
 			select_module(module)
 		else
 			deselect_module(get_selected_module()) //If we can't do select anything, at least deselect the current module.
-	for (var/obj/screen/inv in src.HUDinventory)
+	for (var/obj/screen/inv in hud_used?.HUDinventory)
 		inv.update_icon()
 	return
 
@@ -220,12 +220,12 @@
 	return
 
 /mob/living/silicon/robot/proc/find_inv_position(var/invnum)
-	if (!src.HUDinventory.len)
+	if (!hud_used?.HUDinventory.len)
 		return
 	var/obj/screen/silicon/module/inv
 
 	if(invnum in 1 to 3)
-		inv = src.HUDinventory[invnum]
+		inv = hud_used.HUDinventory[invnum]
 		return inv.screen_loc
 	else
 		log_admin("some error has been occure in /mob/living/silicon/robot/proc/find_inv_position, because invnum [invnum]")

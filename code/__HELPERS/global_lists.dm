@@ -340,9 +340,9 @@ var/global/list/hair_gradients_list = list(
 		var/datum/corporation/C = new T
 		global.GLOB.global_corporations[C.name] = C
 
-	paths = subtypesof(/datum/hud)
+	paths = subtypesof(/datum/hud_layout)
 	for(var/T in paths)
-		var/datum/hud/C = new T
+		var/datum/hud_layout/C = new T
 		GLOB.HUDdatums[C.name] = C
 
 	//Rituals

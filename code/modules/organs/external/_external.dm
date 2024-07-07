@@ -277,10 +277,10 @@
 /obj/item/organ/external/proc/update_bionics_hud()
 	switch(organ_tag)
 		if(BP_L_ARM)
-			var/obj/item/organ/external/organ = owner?.HUDneed["left arm bionics"]
+			var/obj/item/organ/external/organ = owner?.hud_used?.HUDneed["left arm bionics"]
 			organ?.update_icon()
 		if(BP_R_ARM)
-			var/obj/item/organ/external/organ = owner?.HUDneed["right arm bionics"]
+			var/obj/item/organ/external/organ = owner?.hud_used?.HUDneed["right arm bionics"]
 			organ?.update_icon()
 
 /obj/item/organ/external/emp_act(severity)

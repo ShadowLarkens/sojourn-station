@@ -203,7 +203,7 @@ GLOBAL_VAR_INIT(GLOBAL_INSIGHT_MOD, 1)
 				insight -= 100
 			owner.playsound_local(get_turf(owner), 'sound/sanity/level_up.ogg', 100)
 
-	var/obj/screen/sanity/hud = owner.HUDneed["sanity"]
+	var/obj/screen/sanity/hud = owner.hud_used?.HUDneed["sanity"]
 	hud?.update_icon()
 
 /datum/sanity/proc/handle_level()
@@ -529,7 +529,7 @@ GLOBAL_VAR_INIT(GLOBAL_INSIGHT_MOD, 1)
 	level = new_level
 	if(level == 0 && world.time >= breakdown_time)
 		breakdown()
-	var/obj/screen/sanity/hud = owner.HUDneed["sanity"]
+	var/obj/screen/sanity/hud = owner.hud_used?.HUDneed["sanity"]
 	hud?.update_icon()
 
 /datum/sanity/proc/breakdown(var/positive_breakdown = FALSE)

@@ -336,8 +336,8 @@
 
 		if(internal)
 			return internal.remove_air_volume(volume_needed)
-		else if(HUDneed.Find("internal"))
-			var/obj/screen/HUDelm = HUDneed["internal"]
+		else if(hud_used?.HUDneed.Find("internal"))
+			var/obj/screen/HUDelm = hud_used.HUDneed["internal"]
 			HUDelm.update_icon()
 	return null
 
@@ -949,7 +949,7 @@
 
 /mob/living/carbon/human/handle_regular_hud_updates()
 	. = ..()
-	for (var/obj/screen/H in HUDprocess)
+	for (var/obj/screen/H in hud_used?.HUDprocess)
 //		var/obj/screen/B = H
 		H.Process()
 	if(!overlays_cache)

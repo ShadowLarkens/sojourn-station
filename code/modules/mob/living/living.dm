@@ -11,8 +11,8 @@
 /mob/living/proc/flash(duration = 0, drop_items = FALSE, doblind = FALSE, doblurry = FALSE)
 	if(blinded)
 		return
-	if (HUDtech.Find("flash"))
-		flick("e_flash", HUDtech["flash"])
+	if (hud_used?.HUDtech.Find("flash"))
+		flick("e_flash", hud_used.HUDtech["flash"])
 	if(duration || drop_items)
 		Weaken(duration, drop_items)
 	if(doblind)
@@ -771,14 +771,14 @@ default behaviour is:
 
 /mob/living/throw_mode_off()
 	src.in_throw_mode = 0
-	if (HUDneed.Find("throw"))
-		var/obj/screen/HUDthrow/HUD = HUDneed["throw"]
+	if (hud_used?.HUDneed.Find("throw"))
+		var/obj/screen/HUDthrow/HUD = hud_used.HUDneed["throw"]
 		HUD.update_icon()
 
 /mob/living/throw_mode_on()
 	src.in_throw_mode = 1
-	if (HUDneed.Find("throw"))
-		var/obj/screen/HUDthrow/HUD = HUDneed["throw"]
+	if (hud_used?.HUDneed.Find("throw"))
+		var/obj/screen/HUDthrow/HUD = hud_used.HUDneed["throw"]
 		HUD.update_icon()
 
 /mob/living/start_pulling(atom/movable/AM)
@@ -833,8 +833,8 @@ default behaviour is:
 	src.pulling = AM
 	AM.pulledby = src
 
-	if (HUDneed.Find("pull"))
-		var/obj/screen/HUDthrow/HUD = HUDneed["pull"]
+	if (hud_used?.HUDneed.Find("pull"))
+		var/obj/screen/HUDthrow/HUD = hud_used.HUDneed["pull"]
 		HUD.update_icon()
 
 	if(ishuman(AM))

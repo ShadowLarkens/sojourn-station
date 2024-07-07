@@ -57,4 +57,61 @@
 	name = "open space shadow plane"
 	plane = OPENSPACE_PLANE
 
+/datum/hud/proc/updatePlaneMasters(mob/viewmob, force = FALSE)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob || !screenmob.client)
+		return
 
+	var/atom/player = screenmob
+	if(screenmob.client.virtual_eye)
+		player = screenmob.client.virtual_eye
+
+	var/turf/T = get_turf(player)
+	if(!T)
+		return
+
+	var/z = T.z
+
+	if(z == old_z && !force)
+		return
+
+	old_z = z
+
+	var/datum/level_data/LD = z_levels[z]
+
+	for(var/pmaster in plane_masters)
+		var/obj/screen/plane_master/instance = plane_masters[pmaster]
+		screenmob.client.screen -= instance
+		qdel(instance)
+
+	plane_masters.Cut()
+
+	for(var/over in openspace_overlays)
+		var/obj/screen/openspace_overlay/instance = openspace_overlays[over]
+		screenmob.client.screen -= instance
+		qdel(instance)
+
+	openspace_overlays.Cut()
+
+	if(!LD) return; //TODO: analyze why things can have no level here.
+
+	for(var/zi in LD.original_level to z)
+		var/relative_level = zi - LD.original_level + 1
+		for(var/mytype in subtypesof(/obj/screen/plane_master))
+			var/obj/screen/plane_master/instance = new mytype()
+
+			instance.plane = calculate_plane(zi,instance.plane)
+
+			plane_masters["[zi]-[relative_level]-[instance.plane]-[mytype]"] = instance
+			screenmob.client.screen += instance
+			instance.backdrop(screenmob)
+
+		for(var/pl in list(GAME_PLANE,FLOOR_PLANE))
+			if(zi < z)
+				var/zdiff = z-(zi-1)
+
+				var/obj/screen/openspace_overlay/oover = new
+				oover.plane = calculate_plane(zi,pl)
+				oover.alpha = min(255,zdiff*50 + 30)
+				openspace_overlays["[zi]-[relative_level]-[oover.plane]"] = oover
+				screenmob.client.screen += oover

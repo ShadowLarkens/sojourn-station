@@ -1,6 +1,5 @@
-/datum/hud
+/datum/hud_layout
 	var/name
-	var/mob/mymob = null
 	var/list/HUDneed //for "active" elements (health)
 //	var/list/HUDprocess = list()
 	var/list/slot_data //inventory stuff (for mob variable HUDinventory)
@@ -13,90 +12,7 @@
 	var/list/IconUnderlays //underlays data for HUD objects
 	var/MinStyleFlag = FALSE //that HUD style have compact version?
 
-	// plane master / openspace overlay vars
-	var/old_z
-	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
-	var/list/obj/screen/openspace_overlay/openspace_overlays = list()
-	// Elements used for action buttons
-	// -- the main clickable buttons
-	var/obj/screen/action_palette/toggle_palette
-	var/action_buttons_hidden = FALSE
-
-/datum/hud/proc/updatePlaneMasters(mob/viewmob)
-	var/mob/screenmob = viewmob || mymob
-	if(!screenmob || !screenmob.client)
-		return
-
-	var/atom/player = screenmob
-	if(screenmob.client.virtual_eye)
-		player = screenmob.client.virtual_eye
-
-	var/turf/T = get_turf(player)
-	if(!T)
-		return
-
-	var/z = T.z
-
-	if(z == old_z)
-		return
-
-	old_z = z
-
-	var/datum/level_data/LD = z_levels[z]
-
-	for(var/pmaster in plane_masters)
-		var/obj/screen/plane_master/instance = plane_masters[pmaster]
-		screenmob.client.screen -= instance
-		qdel(instance)
-
-	plane_masters.Cut()
-
-	for(var/over in openspace_overlays)
-		var/obj/screen/openspace_overlay/instance = openspace_overlays[over]
-		screenmob.client.screen -= instance
-		qdel(instance)
-
-	openspace_overlays.Cut()
-
-	if(!LD) return; //TODO: analyze why things can have no level here.
-
-	for(var/zi in LD.original_level to z)
-		var/relative_level = zi - LD.original_level + 1
-		for(var/mytype in subtypesof(/obj/screen/plane_master))
-			var/obj/screen/plane_master/instance = new mytype()
-
-			instance.plane = calculate_plane(zi,instance.plane)
-
-			plane_masters["[zi]-[relative_level]-[instance.plane]-[mytype]"] = instance
-			screenmob.client.screen += instance
-			instance.backdrop(screenmob)
-
-		for(var/pl in list(GAME_PLANE,FLOOR_PLANE))
-			if(zi < z)
-				var/zdiff = z-(zi-1)
-
-				var/obj/screen/openspace_overlay/oover = new
-				oover.plane = calculate_plane(zi,pl)
-				oover.alpha = min(255,zdiff*50 + 30)
-				openspace_overlays["[zi]-[relative_level]-[oover.plane]"] = oover
-				screenmob.client.screen += oover
-
-/mob/update_plane()
-	..()
-	if(hud_used)
-		hud_used.updatePlaneMasters(src)
-
-
-/datum/hud/New(mob/new_mymob)
-	mymob = new_mymob
-	if(mymob)
-		updatePlaneMasters(mymob)
-
-/datum/hud/Destroy()
-	mymob = null
-	. = ..()
-
-/datum/hud/human
+/datum/hud_layout/human
 	name = "ErisStyle"
 	icon = 'icons/mob/screen/ErisStyleHolo.dmi'
 	//Xbags, Ybags for space_orient_objs
@@ -202,7 +118,7 @@
 		//list("loc" = "2,3", "icon_state" = "block",  "hideflag" = TOGGLE_INVENTORY_FLAG),
 
 
-/datum/hud/human/New()
+/datum/hud_layout/human/New()
 	..()
 	IconUnderlays = list(
 		"back0" = new /image(src.icon, "t0"),
@@ -234,7 +150,7 @@
 		I.alpha = 200
 
 
-/datum/hud/cyborg
+/datum/hud_layout/cyborg
 	name = "BorgStyle"
 	icon = 'icons/mob/screen1_robot.dmi'
 
@@ -268,7 +184,7 @@
 
 
 
-/datum/hud/Xenos
+/datum/hud_layout/Xenos
 	name = "Xenos"
 	icon = 'icons/mob/screen1_alien.dmi'
 

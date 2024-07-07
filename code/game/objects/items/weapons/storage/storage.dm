@@ -91,7 +91,7 @@
 	if (itemCount)
 		item.maptext = "<font color='white'>[itemCount]</font>"
 
-/obj/item/storage/proc/generateHUD(var/datum/hud/data)
+/obj/item/storage/proc/generateHUD(var/datum/hud_layout/data)
 	RETURN_TYPE(/HUD_element)
 	var/HUD_element/main = new("storage")
 	main.setDeleteOnHide(TRUE)
@@ -248,7 +248,7 @@
 			if(I.on_found(user)) //trigger mousetraps etc.
 				return
 
-	var/datum/hud/data = GLOB.HUDdatums[user.defaultHUD]
+	var/datum/hud_layout/data = GLOB.HUDdatums[user.defaultHUD]
 	if(data)
 		generateHUD(data).show(user.client)
 		is_seeing |= user
@@ -291,7 +291,7 @@
 /obj/item/storage/proc/refresh_all()
 	for (var/mob/M in is_seeing)
 		if(M.client)
-			var/datum/hud/data = GLOB.HUDdatums[M.defaultHUD]
+			var/datum/hud_layout/data = GLOB.HUDdatums[M.defaultHUD]
 			if (data)
 				generateHUD(data).show(M.client)
 

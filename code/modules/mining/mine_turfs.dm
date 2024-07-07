@@ -350,8 +350,8 @@
 		for(var/mob/living/M in range(src, 200))
 			to_chat(M, "<font color='red'><b>[pick("A high pitched [pick("keening","wailing","whistle")]","A rumbling noise like [pick("thunder","heavy machinery")]")] somehow penetrates your mind before fading away!</b></font>")
 			if(pain)
-				if (M.HUDtech.Find("pain"))
-					flick("pain",M.HUDtech["pain"])
+				if (M?.hud_used.HUDtech.Find("pain"))
+					flick("pain",M.hud_used.HUDtech["pain"])
 				if(prob(50))
 					M.adjustBruteLoss(5)
 			else
