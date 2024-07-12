@@ -7,6 +7,7 @@
 
 // Item equipment slots.
 //This is the value used for the equip_slot variable to tell what slot an item is currently equipped into
+// FIXME: Update StripPanel.tsx's SlotId enum if you change this!
 #define slot_none		 0
 #define slot_back        1
 #define slot_wear_mask   2

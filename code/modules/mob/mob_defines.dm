@@ -229,3 +229,5 @@ While it would be entirely possible to check the mob's move handlers list for th
 	var/obj/effect/gibspawner/gibspawner = /obj/effect/gibspawner/generic // for xeno gibs, originally
 
 	var/click_delay_addition = 0
+
+	var/datum/tgui_module/strip_panel/stripping_panel

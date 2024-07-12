@@ -60,7 +60,7 @@ var/list/holder_mob_icon_cache = list()
 
 /obj/item/holder/attack_self()
 	for(var/mob/M in contents)
-		M.show_inv(usr)
+		M.show_stripping_panel(usr)
 
 //Mob specific holders.
 /obj/item/holder/diona

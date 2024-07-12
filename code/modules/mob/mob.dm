@@ -257,8 +257,19 @@
 
 	return
 
+/mob/proc/show_stripping_panel(mob/user)
+	if(!stripping_panel)
+		stripping_panel = new(src)
+	stripping_panel.ui_interact(user)
+	show_inv(user) // legacy while i work
 
-/mob/proc/show_inv(mob/user as mob)
+/mob/proc/get_strip_panel_data(mob/user)
+	return
+
+/mob/proc/handle_stripping_actions(action, list/params)
+	return 0
+
+/mob/proc/show_inv(mob/user)
 	return
 
 /**
@@ -624,7 +635,7 @@
 	if(usr == src) return
 	if(!Adjacent(usr)) return
 	if(isAI(M)) return
-	show_inv(usr)
+	show_stripping_panel(usr)
 
 
 /mob/verb/stop_pulling()

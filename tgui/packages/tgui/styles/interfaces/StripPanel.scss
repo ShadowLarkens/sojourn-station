@@ -1,0 +1,23 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss';
+
+.PaperDoll--Background {
+  background-image: url('../assets/spread-arms-silhouette.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  user-select: none;
+  -ms-user-select: none;
+  z-index: 0;
+}
+
+.PaperDoll--Slot {
+  border: 4px solid colors.bg(colors.$dark-grey);
+  border-radius: 5px;
+  background: linear-gradient(
+    135deg,
+    rgb(34, 34, 34) 0%,
+    rgba(12, 12, 12) 80%,
+    rgb(0, 0, 0) 100%
+  );
+}
