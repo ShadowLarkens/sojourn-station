@@ -15,6 +15,11 @@ $scrollbar-color-multiplier: 1 !default;
     base.$color-bg,
     $lightness: -25% * $scrollbar-color-multiplier
   );
+  scrollbar-color: color.scale(
+      base.$color-bg,
+      $lightness: -25% * $scrollbar-color-multiplier
+    )
+    color.scale(base.$color-bg, $lightness: 0% * $scrollbar-color-multiplier);
   scrollbar-face-color: color.scale(
     base.$color-bg,
     $lightness: 10% * $scrollbar-color-multiplier

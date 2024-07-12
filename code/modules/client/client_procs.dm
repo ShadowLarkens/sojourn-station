@@ -341,6 +341,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	loot_panel = new(src)
 
+	// enable wv2 devtools
+	winset(src, "", "browser-options=find,devtools")
+
 	Master.UpdateTickRate()
 	fully_created = TRUE
 
